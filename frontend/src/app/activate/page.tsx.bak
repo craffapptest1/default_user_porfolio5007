@@ -2,10 +2,10 @@
 
 import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import ResetPasswordForm from "@/components/auth/ResetPasswordForm";
+import ActivationForm from "@/components/auth/ActivationForm";
 import { useAuth } from "@/hooks/useAuth";
 
-export default function ResetPasswordPage() {
+export default function ActivatePage() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { isAuthenticated, isLoading } = useAuth();
@@ -26,7 +26,7 @@ export default function ResetPasswordPage() {
 
   return (
     <div className="flex justify-center items-center min-h-[calc(100vh-16rem)]">
-      <ResetPasswordForm email={email} />
+      <ActivationForm email={email} />
     </div>
   );
 }

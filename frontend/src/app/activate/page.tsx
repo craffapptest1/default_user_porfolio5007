@@ -20,7 +20,7 @@ export default function ActivatePage() {
 
   useEffect(() => {
     if (isAuthenticated && !isLoading) {
-      router.push("/dashboard");
+      router.push("/portfolio");
     }
   }, [isAuthenticated, isLoading, router]);
 

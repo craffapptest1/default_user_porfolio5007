@@ -2,7 +2,7 @@ name: Test and Build Frontend
 
 on:
   push:
-    branches: ['advance']
+    branches: ['master']
     paths:
       - 'frontend/**'
       - '.github/workflows/test-frontend.yml'

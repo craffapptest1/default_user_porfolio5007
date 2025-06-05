@@ -1,21 +1,16 @@
 name: Deploy Frontend
 
-on:
-  workflow_run:
-    workflows:
-      - "Test and Build Frontend"
-    branches:
-      - advance  # 👈 Critical for non-default branches
-    types:
-      - completed
+on: 
+  push:
+   branches: ["advance"]
+   paths: 
+   - '.github/workflows/deploy-frontent.yml'
 
-permissions:
-  actions: read
-  contents: read
+
+
 
 jobs:
   deploy-frontend:
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     environment: production
 

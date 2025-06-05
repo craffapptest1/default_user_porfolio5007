@@ -1,11 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import ActivationForm from "@/components/auth/ActivationForm";
 import { useAuth } from "@/hooks/useAuth";
 
-export default function ActivatePage() {
+function ActivateContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { isAuthenticated, isLoading } = useAuth();
@@ -20,7 +20,7 @@ export default function ActivatePage() {
 
   useEffect(() => {
     if (isAuthenticated && !isLoading) {
-      router.push("/portfolio");
+      router.push("/dashboard");
     }
   }, [isAuthenticated, isLoading, router]);
 
@@ -28,5 +28,13 @@ export default function ActivatePage() {
     <div className="flex justify-center items-center min-h-[calc(100vh-16rem)]">
       <ActivationForm email={email} />
     </div>
+  );
+}
+
+export default function ActivatePage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <ActivateContent />
+    </Suspense>
   );
 }

@@ -1,16 +1,16 @@
-#api/v1/endpoints/auth
+# backend/api/v1/endpoints/auth.py
 from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
-from app.database import get_db
-from app.models.user import User
-from app.schemas.user import UserCreate, UserActivate, Token, User as UserSchema
-from app.schemas.user import PasswordReset, PasswordResetConfirm, UserUpdate  
-from app.core.security import verify_password, get_password_hash, create_access_token
-from app.core.email import generate_activation_code, send_activation_email
-from app.core.email import generate_reset_code, send_password_reset_email  
+from database import get_db
+from models.user import User
+from schemas.user import UserCreate, UserActivate, Token, User as UserSchema
+from schemas.user import PasswordReset, PasswordResetConfirm, UserUpdate  
+from core.security import verify_password, get_password_hash, create_access_token
+from core.email import generate_activation_code, send_activation_email
+from core.email import generate_reset_code, send_password_reset_email  
 from datetime import timedelta
-from app.config import settings
+from config import settings
 from jose import JWTError, jwt
 
 router = APIRouter()
@@ -134,7 +134,6 @@ async def forgot_password(password_reset: PasswordReset, db: Session = Depends(g
     
     return {"message": "If your email is registered, you will receive a password reset code"}
 
-
 @router.post("/reset-password")
 async def reset_password(password_reset_confirm: PasswordResetConfirm, db: Session = Depends(get_db)):
     user = db.query(User).filter(User.email == password_reset_confirm.email).first()
@@ -149,7 +148,6 @@ async def reset_password(password_reset_confirm: PasswordResetConfirm, db: Sessi
     db.commit()
     
     return {"message": "Password has been reset successfully"}
-
 
 @router.put("/update-account", response_model=UserSchema)
 async def update_account(

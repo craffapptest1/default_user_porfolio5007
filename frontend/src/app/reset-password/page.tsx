@@ -1,11 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import ResetPasswordForm from "@/components/auth/ResetPasswordForm";
 import { useAuth } from "@/hooks/useAuth";
 
-export default function ResetPasswordPage() {
+function ResetPasswordContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { isAuthenticated, isLoading } = useAuth();
@@ -28,5 +28,13 @@ export default function ResetPasswordPage() {
     <div className="flex justify-center items-center min-h-[calc(100vh-16rem)]">
       <ResetPasswordForm email={email} />
     </div>
+  );
+}
+
+export default function ResetPasswordPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <ResetPasswordContent />
+    </Suspense>
   );
 }

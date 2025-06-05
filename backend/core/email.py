@@ -1,6 +1,6 @@
-# core/email
+# backend/core/email.py
 import emails
-from app.config import settings
+from config import settings
 import random
 import string
 

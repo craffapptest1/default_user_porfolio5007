@@ -1,10 +1,11 @@
 name: Deploy Frontend
 
-on: 
+on:
   push:
-   branches: ["advance"]
-   paths: 
-   - '.github/workflows/deploy-frontent.yml'
+    branches: ['advance']
+    paths:
+      - 'frontend/**'
+      - '.github/workflows/deploy-frontend.yml'
 
 
 

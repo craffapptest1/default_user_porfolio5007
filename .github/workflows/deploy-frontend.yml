@@ -28,7 +28,7 @@ jobs:
         run: |
           echo "S3_BUCKET=$(aws ssm get-parameter --name '/app/s3-bucket' --query 'Parameter.Value' --output text)" >> $GITHUB_ENV
           echo "CF_ID=$(aws ssm get-parameter --name '/app/cf-id' --query 'Parameter.Value' --output text)" >> $GITHUB_ENV
-          echo "APPRUNNER_URL=https://$(aws ssm get-parameter --name '/app/apprunner_url' --query 'Parameter.Value' --output text | sed 's/^https:\/\///')" >> $GITHUB_ENV
+          echo "APPRUNNER_URL=$(aws ssm get-parameter --name '/app/apprunner_url' --query 'Parameter.Value' --output text)" >> $GITHUB_ENV 
       - name: Debug Terraform Outputs
         run: |
           echo "S3_BUCKET_NAME: $S3_BUCKET"
@@ -45,8 +45,7 @@ jobs:
         run: |
           cd frontend
           npm install --legacy-peer-deps
-          NEXT_PUBLIC_API_URL=$APPRUNNER_URL
-          npm run build
+          NEXT_PUBLIC_API_URL="https://$(echo $APPRUNNER_URL | sed 's/^https:\/\///')" npm run build
           cp .env ./out/.env
 
       - name: Deploy to S3

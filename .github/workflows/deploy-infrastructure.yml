@@ -1,7 +1,7 @@
 name: Deploy Infrastructure
 on:
   push:
-    branches: ['advance']
+    branches: ['master']
     paths:
       - 'terraform/**'
       - '.github/workflows/deploy-infrastructure.yml'
